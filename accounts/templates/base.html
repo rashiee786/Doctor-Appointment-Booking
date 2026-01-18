@@ -1,0 +1,140 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Doctor Appointment Booking System</title>
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&family=Roboto&display=swap" rel="stylesheet">
+   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="{% static 'images/css/style.css' %}">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+
+</head>
+<body>
+
+   <style>
+    .navbar-custom {
+      background-color:rgb(7, 4, 92); /* deep blue */
+    }
+    .navbar-custom .navbar-brand,
+    .navbar-custom .nav-link {
+      color: #fff; /* white text */
+    }
+
+    .navbar-brand img{
+      max-height: 50px;
+      width: auto;
+      display: inline-block;
+      vertical-align: middle;
+    }
+
+    footer a:hover {
+  color: #0d6efd; /* Bootstrap blue */
+  text-decoration: underline;
+}
+
+  </style>
+
+
+  
+  <nav class="navbar navbar-expand-lg navbar-custom">
+    <div class="container">
+      <a class="navbar-brand fw-bold" href="/">
+      <img src="{% static 'images/Clinics_Logo.png' %}" alt="MedBook Logo" height="50" class="me-2">
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+  <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
+ <li class="nav-item"><a class="nav-link" href="{% url 'accounts:speciality_list' %}">Doctors</a></li>
+  <li class="nav-item"><a class="nav-link" href="{% url 'accounts:about' %}">About</a></li>
+  <li class="nav-item"><a class="nav-link" href="{% url 'accounts:contact' %}">Contact Us</a></li>
+
+  {% if user.is_authenticated %}
+    {% if user.role == "DOCTOR" %}
+      <li class="nav-item"><a class="nav-link" href="{% url 'accounts:doctor_dashboard' %}">Doctor Dashboard</a></li>
+    {% elif user.role == "PATIENT" %}
+      <li class="nav-item"><a class="nav-link" href="{% url 'accounts:patient_dashboard' %}">My Appointments</a></li>
+      <li class="nav-item"><a class="nav-link" href="{% url 'accounts:book_appointment' %}">Book Appointment</a></li>
+    {% endif %}
+    <li class="nav-item"><a class="nav-link" href="{% url 'accounts:logout' %}">Logout</a></li>
+  {% else %}
+    <!-- <li class="nav-item"><a class="nav-link" href="{% url 'accounts:login' %}">Login</a></li>
+    <li class="nav-item"><a class="nav-link" href="{% url 'accounts:register' %}">Register</a></li> -->
+  {% endif %}
+</ul>  
+      </div>
+    </div>
+  </nav>
+
+   {% if messages %}
+    <div class="container mt-3">
+      {% for message in messages %}
+        <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+          {{ message }}
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+      {% endfor %}
+    </div>
+  {% endif %}
+
+    {% block content %}{% endblock %}
+
+  <footer class="pt-4 pb-2 mt-5 text-dark" 
+        style="background-color:#f1f1f1; font-family: 'Poppins', sans-serif; font-size: 16px;">
+  <div class="container">
+    <div class="row">
+      <!-- Branding -->
+      <div class="col-md-3">
+        <h5 style="font-size: 20px; font-weight:600;">MedBook</h5>
+        <p>Your trusted doctor appointment partner.</p>
+      </div>
+
+      <!-- Quick Links -->
+      <div class="col-md-3">
+        <h5 style="font-size: 18px; font-weight:600;">Quick Links</h5>
+        <ul class="list-unstyled">
+          <li><a href="/" class="text-dark">Home</a></li>
+          <li><a href="/about" class="text-dark">About Us</a></li>
+          <li><a href="/doctors" class="text-dark">Doctors</a></li>
+          <li><a href="/appointments" class="text-dark">Book Appointment</a></li>
+          <li><a href="/contact" class="text-dark">Contact</a></li>
+        </ul>
+      </div>
+
+      <!-- Contact Info -->
+      <div class="col-md-3">
+        <h5 style="font-size: 18px; font-weight:600;">Contact</h5>
+        <p>Email: support@medbook.com</p>
+        <p>Phone: +91 98765 43210</p>
+        <p>Palakkad, Kerala</p>
+      </div>
+
+      <!-- Social Media -->
+      <div class="col-md-3">
+        <h5 style="font-size: 18px; font-weight:600;">Follow Us</h5>
+        <a href="#" class="text-dark me-2"><i class="fab fa-facebook fa-lg"></i></a>
+        <a href="#" class="text-dark me-2"><i class="fab fa-instagram fa-lg"></i></a>
+        <a href="#" class="text-dark"><i class="fab fa-linkedin fa-lg"></i></a>
+      </div>
+    </div>
+
+    <hr style="border-color:#ccc;">
+    <p class="text-center mb-0" style="font-size: 15px;">&copy; 2025 MedBook. All rights reserved.</p>
+  </div>
+</footer>
+
+
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
+
+
+

@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+{% load widget_tweaks %}
+{% block content %}
+<div class="container py-4">
+  <!-- Page Heading -->
+  <h3 class="mb-3 text-primary">
+    <i class="bi bi-calendar-plus"></i> Add Availability
+  </h3>
+  <p class="text-muted">
+    Select the day and time slots when patients can book appointments with you.
+  </p>
+
+  <!-- Card Wrapper -->
+  <div class="card shadow-sm">
+    <div class="card-body">
+      <!-- Form Start -->
+      <form method="post">
+        {% csrf_token %}
+
+        <!-- Show non-field errors -->
+        {% if form.non_field_errors %}
+          <div class="alert alert-danger">
+            {{ form.non_field_errors }}
+          </div>
+        {% endif %}
+
+        <!-- Day of Week -->
+        <div class="mb-3">
+          <label for="id_day_of_week" class="form-label">
+            <i class="bi bi-calendar-week"></i> Day of Week
+          </label>
+          {{ form.day_of_week|add_class:"form-select" }}
+          {% if form.day_of_week.errors %}
+            <div class="text-danger small">{{ form.day_of_week.errors }}</div>
+          {% endif %}
+        </div>
+
+        <!-- Start Time -->
+        <div class="mb-3">
+          <label for="id_start_time" class="form-label">
+            <i class="bi bi-clock"></i> Start Time
+          </label>
+          {{ form.start_time|add_class:"form-control" }}
+          {% if form.start_time.errors %}
+            <div class="text-danger small">{{ form.start_time.errors }}</div>
+          {% endif %}
+        </div>
+
+        <!-- End Time -->
+        <div class="mb-3">
+          <label for="id_end_time" class="form-label">
+            <i class="bi bi-clock-history"></i> End Time
+          </label>
+          {{ form.end_time|add_class:"form-control" }}
+          {% if form.end_time.errors %}
+            <div class="text-danger small">{{ form.end_time.errors }}</div>
+          {% endif %}
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="d-flex justify-content-between mt-4">
+          <button type="submit" class="btn btn-success">
+            <i class="bi bi-check-circle"></i> Save
+          </button>
+          <a href="{% url 'accounts:availability_list' %}" class="btn btn-secondary">
+            <i class="bi bi-arrow-left-circle"></i> Cancel
+          </a>
+        </div>
+      </form>
+      <!-- Form End -->
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+
+

@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+
+<div class="container my-5">
+  <!-- Page Heading -->
+  <div class="text-center mb-4">
+    <h2 class="fw-bold text-primary">Meet Our Specialists</h2>
+    <p class="text-muted">Browse through our trusted specialists and book appointments instantly.</p>
+  </div>
+
+
+
+  <!-- Search Bar -->
+  <form method="get" class="d-flex justify-content-center mb-4">
+    <input type="text" name="q" class="form-control w-50 me-2" placeholder="Search by name or specialization..." value="{{ request.GET.q }}">
+    <button type="submit" class="btn btn-primary">Search</button>
+  </form>
+
+
+  <!-- Doctors Grid -->
+  <div class="row">
+    {% for doctor in doctors %}
+      <div class="col-md-4 mb-4">
+        <div class="card shadow-sm h-100">
+          <img src="{% static 'images/default-doctor.jpg' %}" class="card-img-top" alt="Doctor" style="height:250px; object-fit:cover;">
+          <div class="card-body text-center">
+            <h5 class="card-title fw-bold text-primary">Dr. {{ doctor.user.get_full_name }}</h5>
+            <p class="card-text text-muted">{{ doctor.specialization }}</p>
+            <p class="small">Experience: {{ doctor.experience_years }} years</p>
+            <p class="small">Fee: ₹{{ doctor.consultation_fee }}</p>
+            <a href="{% url 'accounts:book_appointment' %}?doctor_id={{ doctor.id }}" class="btn btn-success">Book Appointment</a>
+          </div>
+        </div>
+      </div>
+    {% empty %}
+      <p class="text-center text-muted">No doctors found.</p>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}
+
+
+
+
+
+
+
+
