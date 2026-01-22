@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load static %}
+
+<div class="container about-section my-5">
+  <div class="row align-items-center">
+    <!-- Text Column -->
+    <div class="col-md-6">
+      <h2 class="mb-4 text-primary fw-bold">About MedBook</h2>
+      <p>
+        Welcome to <strong>MedBook</strong>, your trusted partner in simplifying healthcare access. 
+        We understand how stressful it can be to find the right doctor, book appointments, and manage your medical records — 
+        so we built MedBook to make it effortless, secure, and personalized.
+      </p>
+
+      <h4 class="mt-4 text-success">Our Mission</h4>
+      <p>
+        To empower individuals and families with seamless access to quality healthcare, 
+        using smart technology and a user-friendly platform.
+      </p>
+
+      <h4 class="mt-4 text-success">Our Vision</h4>
+      <p>
+        We envision a connected healthcare ecosystem where patients and providers interact smoothly, 
+        appointments are just a click away, and medical history is always at your fingertips.
+      </p>
+
+      <h4 class="mt-4 text-success">Why MedBook?</h4>
+      <ul>
+        <li><strong>Efficiency:</strong> Book appointments instantly, no long queues.</li>
+        <li><strong>Convenience:</strong> Manage your health from anywhere, anytime.</li>
+        <li><strong>Personalization:</strong> Track your medical history and family profiles securely.</li>
+      </ul>
+    </div>
+
+     <!-- Image Column -->
+    <div class="col-md-6 text-center">
+      <img src="{% static 'images/about.jpg' %}" 
+           alt="MedBook Doctors" 
+           class="img-fluid rounded shadow-lg" 
+           style="height: 500px; width: auto; object-fit: cover; border-radius: 12px;">
+    </div>
+  </div>
+</div>
+
+{% endblock %}
+

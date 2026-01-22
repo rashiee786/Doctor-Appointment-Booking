@@ -1,0 +1,84 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<div class="container my-5">
+  <div class="text-center mb-4">
+    <h2 class="fw-bold text-primary">Browse Specialities</h2>
+    <p class="text-muted">Choose a speciality to see available doctors.</p>
+  </div>
+
+  <div class="row">
+
+    <!-- General Physician -->
+    <div class="col-md-4 mb-4">
+      <div class="card shadow-sm h-100">
+        <img src="{% static 'images/icons/general_physician.jpg' %}" class="card-img-top" alt="General Physician" style="height:200px; object-fit:cover;">
+        <div class="card-body text-center">
+          <h5 class="card-title fw-bold text-primary">General Physician</h5>
+          <a href="{% url 'accounts:speciality_doctors' 'General Physician' %}" class="btn btn-primary">View Doctors</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Dermatology -->
+    <div class="col-md-4 mb-4">
+      <div class="card shadow-sm h-100">
+        <img src="{% static 'images/icons/dermatologist.jpg' %}" class="card-img-top" alt="Dermatology" style="height:200px; object-fit:cover;">
+        <div class="card-body text-center">
+          <h5 class="card-title fw-bold text-primary">Dermatology</h5>
+          <a href="{% url 'accounts:speciality_doctors' 'Dermatology' %}" class="btn btn-primary">View Doctors</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Gynecology -->
+    <div class="col-md-4 mb-4">
+      <div class="card shadow-sm h-100">
+        <img src="{% static 'images/icons/gynecologist.jpg'%}" class="card-img-top" alt="Gynecology" style="height:200px; object-fit:cover;">
+        <div class="card-body text-center">
+          <h5 class="card-title fw-bold text-primary">Gynecology</h5>
+          <a href="{% url 'accounts:speciality_doctors' 'Gynecology' %}" class="btn btn-primary">View Doctors</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Pediatrics -->
+    <div class="col-md-4 mb-4">
+      <div class="card shadow-sm h-100">
+        <img src="{% static 'images/icons/pediatrician.jpg' %}" class="card-img-top" alt="Pediatrics" style="height:200px; object-fit:cover;">
+        <div class="card-body text-center">
+          <h5 class="card-title fw-bold text-primary">Pediatrics</h5>
+          <a href="{% url 'accounts:speciality_doctors' 'Pediatrics' %}" class="btn btn-primary">View Doctors</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Neurology -->
+    <div class="col-md-4 mb-4">
+      <div class="card shadow-sm h-100">
+        <img src="{% static 'images/icons/neurologist.jpg' %}" class="card-img-top" alt="Neurology" style="height:200px; object-fit:cover;">
+        <div class="card-body text-center">
+          <h5 class="card-title fw-bold text-primary">Neurology</h5>
+          <a href="{% url 'accounts:speciality_doctors' 'Neurology' %}" class="btn btn-primary">View Doctors</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Gastroenterology -->
+    <div class="col-md-4 mb-4">
+      <div class="card shadow-sm h-100">
+        <img src="{% static 'images/icons/gastroenterologist.jpg' %}" class="card-img-top" alt="Gastroenterology" style="height:200px; object-fit:cover;">
+        <div class="card-body text-center">
+          <h5 class="card-title fw-bold text-primary">Gastroenterology</h5>
+          <a href="{% url 'accounts:speciality_doctors' 'Gastroenterology' %}" class="btn btn-primary">View Doctors</a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+{% endblock %}
+
+
+
+

@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<!-- Contact Us Section -->
+<div class="container mt-5 mb-5">
+    <div class="row">
+        <!-- Left Side: Info -->
+        <div class="col-md-6">
+            <h2 class="text-primary mb-4">Contact Us</h2>
+            <p class="lead">Have questions or need assistance? We’re here to help you book appointments with ease.</p>
+            
+            <ul class="list-unstyled mt-4">
+                <li><i class="fas fa-map-marker-alt text-primary"></i> MedBook HQ, Palakkad, Kerala</li>
+                <li><i class="fas fa-phone-alt text-primary"></i> +91 98765 43210</li>
+                <li><i class="fas fa-envelope text-primary"></i> support@medbook.com</li>
+            </ul>
+
+            <div class="mt-4">
+                <h5 class="text-secondary">Follow Us</h5>
+                <a href="#" class="me-3"><i class="fab fa-facebook fa-2x text-primary"></i></a>
+                <a href="#" class="me-3"><i class="fab fa-twitter fa-2x text-info"></i></a>
+                <a href="#"><i class="fab fa-instagram fa-2x text-danger"></i></a>
+            </div>
+        </div>
+
+         <!-- Right Side: Contact Form -->
+        <div class="col-md-6">
+            <div class="card shadow-lg p-4">
+                <h4 class="mb-3 text-center text-success">Send us a Message</h4>
+                <form method="post">
+                    {% csrf_token %}
+                    <div class="mb-3">
+                        <label for="name" class="form-label">Your Name</label>
+                        <input type="text" class="form-control" id="name" name="name" placeholder="Enter your full name" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Your Email</label>
+                        <input type="email" class="form-control" id="email" name="email" placeholder="Enter your email" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="message" class="form-label">Message</label>
+                        <textarea class="form-control" id="message" name="message" rows="4" placeholder="Write your message here..." required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary w-100">Submit</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+

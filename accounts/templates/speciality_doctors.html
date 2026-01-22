@@ -1,0 +1,80 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<div class="container my-5">
+  <div class="text-center mb-4">
+    <h2 class="fw-bold text-primary">{{ speciality }} Specialists</h2>
+    <p class="text-muted">Browse and book appointments instantly.</p>
+  </div>
+
+  <!-- Search Bar -->
+  <form method="get" class="d-flex justify-content-center mb-4">
+    <input type="text" name="q" class="form-control w-50 me-2" placeholder="Search by name..." value="{{ request.GET.q }}">
+    <button type="submit" class="btn btn-primary">Search</button>
+  </form>
+
+  <!-- Doctors Grid -->
+  <div class="row">
+    {% for doctor in doctors %}
+      <div class="col-md-4 mb-4">
+        <div class="card shadow-sm h-100">
+          <!-- Doctor Image -->
+          {% if doctor.image %}
+            <img src="{{ doctor.image.url }}" class="card-img-top" alt="Doctor Image" style="height:250px; object-fit:cover;">
+          {% else %}
+            <img src="{% static 'images/default-doctor.jpg' %}" class="card-img-top" alt="Default Doctor" style="height:250px; object-fit:cover;">
+          {% endif %}
+
+          <div class="card-body text-center">
+            <h5 class="card-title fw-bold text-primary">Dr. {{ doctor.user.get_full_name }}</h5>
+            <p class="text-muted">{{ doctor.specialization }}</p> 
+
+            <!-- ⭐ Rating stars -->
+            <p class="mb-2">
+              {% for i in "12345"|make_list %}
+                {% if forloop.counter <= doctor.average_rating %}
+                  <i class="bi bi-star-fill text-warning"></i>
+                {% else %}
+                  <i class="bi bi-star text-muted"></i>
+                {% endif %}
+
+              {% endfor %}
+              <span class="text-muted small">({{ doctor.average_rating }}/5)</span>
+            </p>
+
+
+            
+            <!-- Availability preview -->
+            {% if doctor.availabilities.all %}
+              <ul class="list-group mb-3">
+                {% for slot in doctor.availabilities.all %}
+                  <li class="list-group-item small">
+                    {{ slot.get_day_of_week_display }}: {{ slot.start_time }} – {{ slot.end_time }}
+                  </li>
+                {% endfor %}
+              </ul>
+            {% else %}
+              <p class="text-muted">No availability set yet.</p>
+            {% endif %}
+
+            <!-- Booking button with login check -->
+            {% if user.is_authenticated %}
+              <a href="{% url 'accounts:book_appointment' %}?doctor_id={{ doctor.id }}" class="btn btn-success">
+                Book Appointment
+              </a>
+            {% else %}
+              <a href="{% url 'accounts:login' %}?next={% url 'accounts:book_appointment' %}?doctor_id={{ doctor.id }}" class="btn btn-warning">
+                Login to Book
+              </a>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    {% empty %}
+      <p class="text-center text-muted">No doctors found in this speciality.</p>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}
+
+
