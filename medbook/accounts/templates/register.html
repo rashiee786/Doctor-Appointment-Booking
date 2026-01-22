@@ -1,0 +1,144 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+
+<style>
+  .register-section {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #eeefeb, #f8f9fa);
+  padding: 40px 0;
+}
+
+.register-card {
+  max-width: 500px;
+  width: 100%;
+  border-radius: 12px;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+  background: #f0ece6;
+  padding: 30px;
+}
+
+.register-card h2 {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 700;
+  color: #052c56;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+/* NEW: global input styling */
+input, select, textarea {
+  border-radius: 8px;
+  padding: 12px;
+  margin-bottom: 15px;
+  border: 1px solid #ced4da;
+  width: 100%;
+  font-size: 1rem;
+  box-sizing: border-box;
+}
+
+input:focus, select:focus, textarea:focus {
+  outline: none;
+  border-color: #032345;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.4);
+}
+
+.btn-register {
+  background: linear-gradient(45deg, #05274d, #023847);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 12px;
+  width: 100%;
+  font-size: 1.1rem;
+  transition: transform 0.3s;
+}
+
+.btn-register:hover {
+  transform: scale(1.05);
+}
+
+</style>
+
+   <div class="register-section">
+  <div class="register-card">
+
+    <!-- Step 1: Branding -->
+    <div class="text-center mb-4">
+      <img src="{% static 'images/loggg.png' %}" alt="MedBook Logo" width="80">
+      <h2 class="mt-2">Create Your MedBook Account</h2>
+    </div>
+
+
+{% for field in form %}
+  {% for error in field.errors %}
+    <div class="alert alert-danger">
+      {{ field.label }}: {{ error }}
+    </div>
+  {% endfor %}
+{% endfor %}
+{% for error in form.non_field_errors %}
+  <div class="alert alert-danger">{{ error }}</div>
+{% endfor %}
+
+
+
+    <!-- Step 2: Form -->
+    <form method="post">
+      {% csrf_token %}
+
+      <!-- username -->
+      <div class="mb-3">
+        <label for="id_username" class="form-label">Username</label>
+        {{ form.username }}
+      </div>
+
+      <!-- email -->
+      <div class="mb-3">
+        <label for="id_email" class="form-label">Email</label>
+        {{ form.email }}
+      </div>
+
+     <!-- Role -->
+      <div class="mb-3">
+        <label for="id_role" class="form-label">Role</label>
+        {{ form.role }}
+
+      </div>
+
+      <!-- password -->
+      <div class="mb-3">
+        <label for="id_password1" class="form-label">Password</label>
+        {{ form.password1 }}
+      </div>
+
+      <!-- confirm password -->
+      <div class="mb-3">
+        <label for="id_password2" class="form-label">Confirm Password</label>
+        {{ form.password2 }}
+      </div>
+
+       <!-- Step 4: Terms -->
+      <div class="form-check mb-3">
+        <input class="form-check-input" type="checkbox" id="terms" required>
+        <label class="form-check-label" for="terms">
+          I agree to the <a href="/terms/" class="text-primary">Terms</a> & <a href="/privacy/" class="text-primary">Privacy Policy</a>
+        </label>
+      </div>
+
+      <button type="submit" class="btn-register">Register</button>
+    </form>
+
+    <!-- Step 3: Security Note -->
+    <p class="text-muted text-center mt-3">
+      🔒 Your information is encrypted and kept secure.
+    </p>
+
+  </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container py-5">
+
+  <!-- Page Title -->
+  <h2 class="text-center text-primary mb-4">
+    <i class="bi bi-person-lines-fill me-2"></i> Update Profile
+  </h2>
+
+  <!-- Profile Update Card -->
+  <div class="card shadow-lg border-0">
+    <div class="card-body">
+      
+      <!-- Profile Picture Preview -->
+      <div class="text-center mb-4">
+        {% if request.user.patientprofile.image %}
+          <img src="{{ request.user.patientprofile.image.url }}" 
+               class="rounded-circle shadow-sm" 
+               width="120" height="120" alt="Profile Picture">
+        {% else %}
+          <i class="bi bi-person-circle text-secondary" style="font-size:120px;"></i>
+        {% endif %}
+        <p class="text-muted mt-2">Current Profile Picture</p>
+      </div>
+
+      <!-- Update Form -->
+      <form method="post" enctype="multipart/form-data" class="needs-validation" novalidate>
+        {% csrf_token %}
+
+        <!-- Render form fields with spacing -->
+        <div class="mb-3">
+          {{ form.as_p }}
+        </div>
+
+        <!-- Submit Button -->
+        <button type="submit" class="btn btn-success w-100 fw-bold">
+          <i class="bi bi-check-circle me-2"></i> Save Changes
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Back to Dashboard -->
+  <div class="text-center mt-4">
+    <a href="{% url 'accounts:patient_dashboard' %}" class="btn btn-outline-secondary">
+      <i class="bi bi-arrow-left-circle me-2"></i> Back to Dashboard
+    </a>
+  </div>
+
+</div>
+{% endblock %}

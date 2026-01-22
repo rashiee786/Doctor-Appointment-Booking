@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container my-5">
+
+  <!-- Page Title -->
+  <h2 class="text-center text-primary mb-3">
+    <i class="bi bi-star-fill me-2"></i> Rate Dr. {{ doctor.user.get_full_name }}
+  </h2>
+  <p class="text-muted text-center">Share your feedback after consultation to help others.</p>
+
+  <!-- Rating Form Card -->
+  <div class="card shadow-lg border-0 mt-4">
+    <div class="card-body">
+      <form method="post" class="needs-validation" novalidate>
+        {% csrf_token %}
+
+        <!-- Rating Field -->
+        <div class="mb-3">
+          <label class="form-label fw-bold text-dark">
+            <i class="bi bi-star me-1 text-warning"></i> Rating
+          </label>
+          {{ form.rating }}
+        </div>
+
+        <!-- Review Field -->
+        <div class="mb-3">
+          <label class="form-label fw-bold text-dark">
+            <i class="bi bi-chat-left-text me-1 text-primary"></i> Review
+          </label>
+          {{ form.review }}
+        </div>
+
+        <!-- Buttons -->
+        <div class="d-flex justify-content-between">
+          <a href="{% url 'accounts:speciality_doctors' doctor.specialization %}" 
+             class="btn btn-outline-secondary">
+            <i class="bi bi-x-circle me-2"></i> Cancel
+          </a>
+          <button type="submit" class="btn btn-success fw-bold">
+            <i class="bi bi-check-circle me-2"></i> Submit Rating
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+</div>
+{% endblock %}
+

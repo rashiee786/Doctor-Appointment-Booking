@@ -1,0 +1,93 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<div class="container py-5" style="background-color:#f8f9fa;">
+  <h2 class="text-center text-primary mb-4">
+    <i class="bi bi-calendar-check-fill me-2"></i>Book an Appointment
+    <span class="badge bg-success">Instant</span>
+  </h2>
+
+  {% if doctor %}
+    <div class="mb-4">
+      <h4 class="text-primary">Available Slots for Dr. {{ doctor.user.get_full_name }}</h4>
+      {% if slots %}
+        <ul class="list-group">
+          {% for slot in slots %}
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+              <span><i class="bi bi-calendar-week me-2"></i>{{ slot.get_day_of_week_display }}</span>
+              <span><i class="bi bi-clock me-2"></i>{{ slot.start_time }} – {{ slot.end_time }}</span>
+            </li>
+          {% endfor %}
+        </ul>
+      {% else %}
+        <div class="alert alert-info mt-3">No availability set for this doctor.</div>
+      {% endif %}
+    </div>
+  {% endif %}
+
+  {% if error %}
+    <div class="alert alert-danger">{{ error }}</div>
+  {% endif %}
+
+  {% if success %}
+    <div class="alert alert-success">{{ success }}</div>
+  {% endif %}
+
+  <form method="post" action="{% url 'accounts:book_appointment' %}" class="shadow-lg p-4 rounded bg-white">
+    {% csrf_token%}
+
+    <div class="row">
+      <!-- Doctor dropdown -->
+      <div class="col-md-6 mb-3">
+        <label class="form-label fw-semibold">Choose Doctor</label>
+        <select class="form-select" name="doctor_id" required {% if doctor %}disabled{% endif %}>
+          {% for d in doctors %}
+            <option value="{{ d.id }}" {% if doctor and doctor.id == d.id %}selected{% endif %}>
+              Dr. {{ d.user.get_full_name }} ({{ d.specialization }})
+            </option>
+          {% endfor %}
+        </select>
+      </div>
+
+      {% if doctor %}
+      <input type="hidden" name="doctor_id" value="{{ doctor.id }}">
+      {% endif %}
+
+
+      <!-- Preferred Date -->
+      <div class="col-md-6 mb-3">
+        <label class="form-label fw-semibold">Preferred Date</label>
+        <input type="date" class="form-control" name="date" required min="{{ today }}">
+        <div class="form-text text-muted">Pick a date that matches the doctor’s availability.</div>
+      </div>
+    </div>
+
+    <!-- Preferred Time -->
+    <div class="mb-3">
+      <label class="form-label fw-semibold">Preferred Time</label>
+      <input type="time" class="form-control" name="time" required>
+      <div class="form-text text-muted">Enter a time within the doctor’s available slots.</div>
+    </div>
+
+    <!-- Notes -->
+    <div class="mb-3">
+      <label class="form-label fw-semibold">Notes</label>
+      <textarea class="form-control" name="notes" rows="3" placeholder="Symptoms or preferences (optional)"></textarea>
+    </div>
+
+
+    <button type="submit" class="btn btn-success btn-lg w-100">
+      <i class="bi bi-check-circle-fill me-2"></i>Confirm Appointment
+    </button>
+  </form>
+
+  <div class="mt-4 text-center">
+    <div class="alert alert-info">
+      <i class="bi bi-info-circle-fill me-2"></i>
+      Tip: You can check the doctor’s availability on their profile or your dashboard before booking.
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+
