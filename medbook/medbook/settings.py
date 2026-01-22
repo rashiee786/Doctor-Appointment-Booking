@@ -10,7 +10,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # Quick-start development settings - unsuitable for production
 SECRET_KEY = 'django-insecure-%&hctb9#c=#w-ey@kj68=ntvvo2$5&9ha!!&n!7u5qjq9x9+pi'
 DEBUG = False
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['rashida.pythonanywhere.com']
 
 # Application definition
 INSTALLED_APPS = [
